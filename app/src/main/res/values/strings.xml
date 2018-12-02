@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Baking App</string>
+    <string name="servings">Servings: %d</string>
+    <string name="recipe_image">Recipe Image</string>
+    <string name="no_internet">Please Check Your Internet Connection</string>
+    <string name="data_not_available">Recipes Data not Available.</string>
+    <string name="failed_to_load_data">Failed to Fetch Recipes Data From The Internet.</string>
+    <string name="failed_to_load_recipe">Failed to Load Recipe Data</string>
+    <string name="title_recipe_step_detail">RecipeStep Detail</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="add_to_widget">Add to Widget</string>
+    <string name="step">Step %d</string>
+    <string name="widget_recipe_key">widget_recipe_key</string>
+    <string name="added_to_widget">Recipe %s Has Been Added to Widget</string>
+</resources>
