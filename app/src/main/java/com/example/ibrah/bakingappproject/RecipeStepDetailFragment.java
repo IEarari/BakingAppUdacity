@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.os.Build.VERSION;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -30,7 +31,6 @@ import com.orhanobut.logger.Logger;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import com.example.ibrah.bakingappproject.GlideApp;
 
 public class RecipeStepDetailFragment extends Fragment {
     public static final String STEP_KEY = "step_k";
@@ -48,7 +48,7 @@ public class RecipeStepDetailFragment extends Fragment {
     @BindView(R.id.instruction_text)
     TextView mTvInstructions;
 
-    private SimpleExoPlayer mExoPlayer;
+    public SimpleExoPlayer mExoPlayer;
     private Step mStep;
     private Unbinder unbinder;
 
@@ -99,20 +99,26 @@ public class RecipeStepDetailFragment extends Fragment {
         if (!TextUtils.isEmpty(mStep.getVideoURL()))
             initializePlayer(Uri.parse(mStep.getVideoURL()));
         else {
-            // Un- hide InstructionsContainer because in case of phone landscape is hidden
             mInstructionsContainer.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void onPause() {
-        super.onPause();
+        if (VERSION.SDK_INT <= 23)
+        {
+            super.onPause();
+        }
+        else{
+            super.onStop();
+        }
         releasePlayer();
     }
 
 
     @Override
     public void onDestroyView() {
+        releasePlayer();
         super.onDestroyView();
         unbinder.unbind();
         Logger.d("onDestroyView");
@@ -145,7 +151,7 @@ public class RecipeStepDetailFragment extends Fragment {
         }
     }
 
-    private void releasePlayer() {
+    public void releasePlayer() {
         if (mExoPlayer != null) {
             mPlayWhenReady = mExoPlayer.getPlayWhenReady();
             mCurrentPosition = mExoPlayer.getCurrentPosition();
@@ -155,4 +161,5 @@ public class RecipeStepDetailFragment extends Fragment {
             mExoPlayer = null;
         }
     }
+
 }
